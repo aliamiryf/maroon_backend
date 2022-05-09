@@ -20,8 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('v1')->group(function (){
     Route::prefix('article')->group(function (){
-        Route::get('/all',function (){
-            return 'all post';
-        });
+        Route::get('/all',[\App\Http\Controllers\v1\articleController::class,'getAllArticle']);
     });
 });

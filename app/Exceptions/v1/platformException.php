@@ -16,7 +16,6 @@ class platformException extends Exception
     }
 
     public function render($request){
-        return 'sdfsf';
-        return $this->responseJson('Failed','Failed',['message'=>'پلتفرم شما در سیستم ثبت نشده است '],'400');
+        return $this->responseJson('Failed','Failed',['message'=>'پلتفرم '.$this->host.' در سیستم ثبت نشده است '],'400');
     }
 }
