@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\v1;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,6 +20,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('v1')->group(function (){
     Route::prefix('article')->group(function (){
-        Route::get('/all',[\App\Http\Controllers\v1\articleController::class,'getAllArticle']);
+        Route::get('/all',[v1\articleController::class,'getAllArticle']);
+        Route::post('create',[v1\articleController::class,'createArticle']);
+        Route::get('{id}',[]);
+        Route::post('edit',[]);
+        Route::get('delete',[]);
+        Route::get('changeStatus');
     });
 });

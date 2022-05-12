@@ -17,7 +17,7 @@ class ArticleCollection extends ResourceCollection
         return [
             'data'=>$this->collection,
             'pagination'=>[
-                'total' => $this->total(),
+                'total' => $this->total() || 0,
                 'count' => $this->count(),
                 'per_page' => $this->perPage(),
                 'current_page' => $this->currentPage(),
