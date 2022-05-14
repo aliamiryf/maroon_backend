@@ -4,9 +4,9 @@ namespace App\Services;
 
 use App\traits\PreparePaginationData;
 use App\traits\responseToJson;
-use App\traits\validatorDate;
+use App\traits\validatorData;
 
 class BaseServices
 {
-    use responseToJson,validatorDate , PreparePaginationData;
+    use responseToJson,validatorData , PreparePaginationData;
 }

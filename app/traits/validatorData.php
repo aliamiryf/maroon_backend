@@ -4,9 +4,9 @@ namespace App\traits;
 
 use Illuminate\Support\Facades\Validator;
 
-trait validatorDate
+trait validatorData
 {
-    public function validatorDate($data,$rules,$message=[]){
+    public function validatorData($data,$rules,$message=[]){
         $dataValidator = Validator::make($data,$rules,$message);
         if ($dataValidator->fails()){
             return [
@@ -16,7 +16,7 @@ trait validatorDate
         }else{
             return [
                 'status'=>true,
-                'date'=>$dataValidator->validated(),
+                'data'=>$dataValidator->validated(),
             ];
         }
     }

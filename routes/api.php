@@ -22,9 +22,11 @@ Route::prefix('v1')->group(function (){
     Route::prefix('article')->group(function (){
         Route::get('/all',[v1\articleController::class,'getAllArticle']);
         Route::post('create',[v1\articleController::class,'createArticle']);
-        Route::get('{id}',[]);
-        Route::post('edit',[]);
-        Route::get('delete',[]);
-        Route::get('changeStatus');
+        Route::get('{id}',[v1\articleController::class,'getArticle']);
+        Route::prefix('{article}')->group(function (){
+            Route::post('edit',[v1\articleController::class,'editArticle']);
+            Route::get('delete',[v1\articleController::class,'deleteArticle']);
+            Route::post('changeStatus',[v1\articleController::class,'changeStatus']);
+        });
     });
 });
