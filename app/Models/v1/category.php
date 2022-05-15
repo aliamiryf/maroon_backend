@@ -12,6 +12,10 @@ class category extends Model
 
 
     public function articles(){
-        return $this->belongsTo(Article::class,'category_id');
+        return $this->hasMany(Article::class,'category_id');
+    }
+
+    public function articleCount(){
+        return $this->hasMany(Article::class,'category_id')->where('status','publish');
     }
 }

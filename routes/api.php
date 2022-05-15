@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\v1;
+use App\Http\Controllers\v1\client;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,13 +20,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('v1')->group(function (){
     Route::prefix('article')->group(function (){
-        Route::get('/all',[v1\articleController::class,'getAllArticle']);
-        Route::post('create',[v1\articleController::class,'createArticle']);
-        Route::get('{id}',[v1\articleController::class,'getArticle']);
+        Route::get('/all',[client\articleController::class,'getAllArticle']);
+        Route::post('create',[client\articleController::class,'createArticle']);
+        Route::get('{id}',[client\articleController::class,'getArticle']);
         Route::prefix('{article}')->group(function (){
-            Route::post('edit',[v1\articleController::class,'editArticle']);
-            Route::get('delete',[v1\articleController::class,'deleteArticle']);
-            Route::post('changeStatus',[v1\articleController::class,'changeStatus']);
+            Route::post('edit',[client\articleController::class,'editArticle']);
+            Route::get('delete',[client\articleController::class,'deleteArticle']);
+            Route::post('changeStatus',[client\articleController::class,'changeStatus']);
         });
+    });
+
+    Route::prefix('/category')->group(function (){
+        Route::get('/all',[client\categoryController::class,'getAllCategory']);
     });
 });
