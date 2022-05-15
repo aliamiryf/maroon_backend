@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('article', function (Blueprint $table) {
-            //
+            $table->dropIfExists('category_id');
         });
     }
 };

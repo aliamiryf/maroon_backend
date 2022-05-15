@@ -18,4 +18,20 @@ class categoryController extends Controller
     {
         return $this->ServicesHandler->getAllCategory($request);
     }
+
+    public function createCategory(Request $request)
+    {
+        return $this->ServicesHandler->createCategory($request);
+    }
+
+    public function editCategory(category $category,Request $request)
+    {
+        return $this->ServicesHandler->editCategory($category,$request);
+    }
+
+    public function deleteCategory(category $category)
+    {
+        return $this->ServicesHandler->deleteCategory($category);
+    }
 }
+
