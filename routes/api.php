@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\v1\client;
+use App\Http\Controllers\v1\main;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,15 @@ Route::prefix('v1')->group(function () {
         Route::prefix('{category}')->group(function () {
             Route::post('/edit', [client\categoryController::class, 'editCategory']);
             Route::get('/delete', [client\categoryController::class, 'deleteCategory']);
+        });
+    });
+
+
+    Route::prefix('auth')->group(function (){
+        Route::post('register',[main\authController::class,'register']);
+        Route::post('forgetPassword');
+        Route::prefix('/login')->group(function (){
+            Route::post('userPass');
         });
     });
 });

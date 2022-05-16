@@ -5,7 +5,6 @@ namespace App\Services\v1\client;
 use App\Http\Resources\v1\categoryCollection;
 use App\Models\v1\category;
 use App\Services\BaseServices;
-use http\Env\Request;
 use Illuminate\Support\Str;
 
 class categoryServices extends BaseServices
@@ -39,12 +38,17 @@ class categoryServices extends BaseServices
             'title'=>'',
             'slug'=>'',
         ]);
-        $category->update([
-            'title'=>$data['data']['title'] ?? $category->title,
-            'status'=>$data['data']['status'] ?? $category->status,
-            'slug'=>$data['data']['slug'] ?? $category->status,
-        ]);
-        return $category;
+        try {
+            $category->update([
+                'title'=>$data['data']['title'] ?? $category->titsle,
+                'status'=>$data['data']['status'] ?? $category->status,
+                'slug'=>$data['data']['slug'] ?? $category->status,
+            ]);
+            return $this->responseJson('200','success',\App\Http\Resources\v1\Category::make($category),200);
+        }catch (\Exception $exception){
+            return $this->responseJson('500','failed',['message'=>$exception->getMessage()],500);
+        }
+
     }
 
     public function deleteCategory($category)
