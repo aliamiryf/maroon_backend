@@ -47,7 +47,7 @@ Route::prefix('v1')->group(function () {
         Route::post('register',[main\authController::class,'register']);
         Route::post('forgetPassword');
         Route::prefix('/login')->group(function (){
-            Route::post('userPass');
+            Route::post('userPass',[main\authController::class,'loginByUserPass']);
         });
     });
 });

@@ -18,4 +18,9 @@ class authController extends Controller
         return $this->ServicesHandler->register($request);
     }
 
+    public function loginByUserPass(Request $request)
+    {
+        return $this->ServicesHandler->loginByUsernamePassword($request);
+    }
+
 }

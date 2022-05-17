@@ -2,6 +2,7 @@
 
 namespace App\Services\v1\client;
 
+use App\Exceptions\v1\invalidDateException;
 use App\Http\Resources\v1\categoryCollection;
 use App\Models\v1\category;
 use App\Services\BaseServices;
@@ -28,7 +29,7 @@ class categoryServices extends BaseServices
            ]);
            return $this->responseJson('success','success',\App\Http\Resources\v1\Category::make($category),200);
        }
-       return $this->responseJson('success','success',$data['message'],401);
+        throw new invalidDateException($data['message']);
     }
 
     public function editCategory($category,$request)
