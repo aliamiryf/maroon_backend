@@ -23,4 +23,10 @@ class authController extends Controller
         return $this->ServicesHandler->loginByUsernamePassword($request);
     }
 
+    public function getProfile(Request $request)
+    {
+        return $request->user;
+//        return $this->ServicesHandler->getProfile($request->header('authorization'));
+    }
+
 }

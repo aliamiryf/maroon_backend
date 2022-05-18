@@ -43,7 +43,12 @@ Route::prefix('v1')->group(function () {
     });
 
 
+
     Route::prefix('auth')->group(function (){
+        Route::middleware('authJwt')->group(function (){
+            Route::get('/profile',[main\authController::class,'getProfile']);
+        });
+
         Route::post('register',[main\authController::class,'register']);
         Route::post('forgetPassword');
         Route::prefix('/login')->group(function (){
