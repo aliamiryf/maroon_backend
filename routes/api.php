@@ -21,6 +21,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1')->group(function () {
+
+
     Route::prefix('article')->group(function () {
         Route::get('/all', [client\articleController::class, 'getAllArticle']);
         Route::post('create', [client\articleController::class, 'createArticle']);
@@ -43,7 +45,6 @@ Route::prefix('v1')->group(function () {
     });
 
 
-
     Route::prefix('auth')->group(function (){
         Route::middleware('authJwt')->group(function (){
             Route::get('/profile',[main\authController::class,'getProfile']);
@@ -54,5 +55,9 @@ Route::prefix('v1')->group(function () {
         Route::prefix('/login')->group(function (){
             Route::post('userPass',[main\authController::class,'loginByUserPass']);
         });
+    });
+
+    Route::prefix('token')->group(function (){
+        Route::get('/generate',[main\temporaryTokenController::class,'generateToken']);
     });
 });

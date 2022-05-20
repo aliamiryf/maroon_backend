@@ -4,6 +4,7 @@ namespace App\Services\v1\main;
 
 use App\Exceptions\v1\invalidDateException;
 use App\Exceptions\v1\unauthenticated;
+use App\Models\v1\category;
 use App\Models\v1\User;
 use App\Services\BaseServices;
 use Illuminate\Support\Facades\Auth;
@@ -15,9 +16,10 @@ use Firebase\JWT\Key;
 class authServices extends BaseServices
 {
     public $key;
-    public function __construct()
+    public $jwtServices;
+    public function __construct(jwtServices $services)
     {
-        $this->key=(string)rand(10,10);
+        $this->jwtServices = $services;
     }
 
     public function register($request)
@@ -60,21 +62,22 @@ class authServices extends BaseServices
     public function generateToken($userId)
     {
         $payload = [
+            'type'=>'authtoken',
             'userId'=>$userId
         ];
-        $jwt = JWT::encode($payload, $this->key, 'HS256');
-        return $jwt;
+        return $this->jwtServices->generateToken($payload);
     }
 
     public function translateToken($token){
         $token = str_replace('Bearer ','',$token);
-        $decoded = JWT::decode($token, new Key($this->key, 'HS256'));
+        $decoded = $this->jwtServices->translateToken($token);
         return $decoded->userId;
     }
+
     public function getProfile($token)
     {
         $userId = $this->translateToken($token);
-        $user = User::find($userId);
+        $user = User::find($userId)->load('userInterestedCategories');
         return $this->responseJson('200','success',\App\Http\Resources\v1\User::make($user),'200');
     }
 }

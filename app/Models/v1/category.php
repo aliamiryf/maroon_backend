@@ -18,4 +18,9 @@ class category extends Model
     public function articleCount(){
         return $this->hasMany(Article::class,'category_id')->where('status','publish');
     }
+
+    public function userInterestedCategories()
+    {
+        return $this->belongsToMany(User::class,'category_interested_user','category_id','user_id');
+    }
 }

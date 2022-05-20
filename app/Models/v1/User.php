@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Article::class,'user_id');
     }
+
+    public function userInterestedCategories()
+    {
+        return $this->belongsToMany(category::class,'category_interested_user','user_id','category_id');
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Services\v1\client;
 
 use App\Http\Resources\v1\ArticleCollection;
 use App\Models\v1\Article;
+use App\Models\v1\User;
 use App\Services\BaseServices;
 use PHPUnit\Exception;
 
@@ -29,7 +30,11 @@ class ArticleServices extends BaseServices
 
     public function getArticle($postId)
     {
-        return $this->responseJson('success', 'success', Article::findOrFail($postId), 200);
+        $article = Article::findOrFail($postId)->load('category');
+        $category = $article->category;
+        $category->userInterestedCategories()->attach($category->id);
+        
+        return $this->responseJson('success', 'success', $article , 200);
     }
 
     public function editArticle($article, $request)
