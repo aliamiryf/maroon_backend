@@ -2,14 +2,22 @@
 
 namespace App\Services\v1\client;
 
+use App\Events\userReadArticle;
 use App\Http\Resources\v1\ArticleCollection;
 use App\Models\v1\Article;
 use App\Models\v1\User;
 use App\Services\BaseServices;
+use Illuminate\Http\Request;
 use PHPUnit\Exception;
 
 class ArticleServices extends BaseServices
 {
+    public $request;
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
+
     public function getAllArticles($request)
     {
         $article = Article::with(['authorInfo', 'category']);
@@ -30,10 +38,12 @@ class ArticleServices extends BaseServices
 
     public function getArticle($postId)
     {
+
         $article = Article::findOrFail($postId)->load('category');
         $category = $article->category;
+        $this->request->merge(['category'=>$category]);
+        return event(new userReadArticle($this->request));
         $category->userInterestedCategories()->attach($category->id);
-        
         return $this->responseJson('success', 'success', $article , 200);
     }
 
