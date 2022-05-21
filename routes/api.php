@@ -60,4 +60,8 @@ Route::prefix('v1')->group(function () {
     Route::prefix('token')->group(function (){
         Route::get('/generate',[main\temporaryTokenController::class,'generateToken']);
     });
+
+    Route::prefix('tag')->group(function (){
+        Route::get('all',[client\tagController::class,'getAllTag']);
+    });
 });

@@ -51,7 +51,7 @@ class setUserInterestedCategories
 
         $user = $this->jwtServices->translateToken($token);
 
-        User::find($user->userId)->userInterestedCategories()->sync([$this->event->request->category->id]);
+        User::find($user->userId)->userInterestedCategories()->attach([$this->event->request->category->id]);
     }
 
     public function setCategoryGuestUser(){

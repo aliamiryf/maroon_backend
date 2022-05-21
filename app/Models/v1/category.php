@@ -21,6 +21,6 @@ class category extends Model
 
     public function userInterestedCategories()
     {
-        return $this->belongsToMany(User::class,'category_interested_user','category_id','user_id')->withTimestamps();
+        return $this->belongsToMany(User::class,'category_interested_user','category_id','user_id')->withTimestamps()->distinct();
     }
 }

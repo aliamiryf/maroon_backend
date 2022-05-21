@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('category_interested_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable();
+            $table->foreignId('user_id')->nullable()->unique();
             $table->string('token_id')->nullable();
-            $table->foreignId('category_id');
+            $table->foreignId('category_id')->unique();
             $table->timestamps();
         });
     }

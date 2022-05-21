@@ -49,6 +49,6 @@ class User extends Authenticatable
 
     public function userInterestedCategories()
     {
-        return $this->belongsToMany(category::class,'category_interested_user','user_id','category_id')->withTimestamps();
+        return $this->belongsToMany(category::class,'category_interested_user','user_id','category_id')->withTimestamps()->distinct();
     }
 }
