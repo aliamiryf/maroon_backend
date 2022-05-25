@@ -2,6 +2,7 @@
 
 namespace App\Services\v1\client;
 
+use App\Exceptions\v1\invalidDateException;
 use App\Http\Resources\v1\TagCollection;
 use App\Models\v1\Tag;
 use App\Services\BaseServices;
@@ -18,6 +19,20 @@ class tagServices extends BaseServices
             'slug'=>'required',
             'category_id'=>'required',
         ]);
-        return $data;
+        if ($data['status']){
+            $tag = Tag::create([
+                'title'=>$data['data']['title'],
+                'slug'=>$data['data']['slug'],
+                'category_id'=>$data['data']['category_id'],
+            ]);
+            return $this->responseJson('success','success',\App\Http\Resources\v1\Tag::make($tag),200);
+        }
+        throw new invalidDateException($data['message']);
+    }
+
+    public function deleteTag($tag)
+    {
+        $tag->delete();
+        return $this->responseJson('success','success',[],'200');
     }
 }

@@ -64,5 +64,8 @@ Route::prefix('v1')->group(function () {
     Route::prefix('tag')->group(function (){
         Route::get('all',[client\tagController::class,'getAllTag']);
         Route::post('create',[client\tagController::class,'createTag']);
+        Route::prefix('{tag}')->group(function (){
+            Route::get('/delete',[client\tagController::class,'deleteTag']);
+        });
     });
 });

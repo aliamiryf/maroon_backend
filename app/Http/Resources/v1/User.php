@@ -19,7 +19,8 @@ class User extends JsonResource
             'name'=>$this->name,
             'email'=>$this->email,
             'username'=>$this->username,
-            'user_interested_categories'=>Category::collection($this->whenLoaded('userInterestedCategories'))
+            'user_interested_categories'=>Category::collection($this->whenLoaded('userInterestedCategories')),
+            'user_interested_tag'=>Tag::collection($this->whenLoaded('userInterestedTag'))
         ];
     }
 }

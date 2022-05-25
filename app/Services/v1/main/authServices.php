@@ -77,7 +77,7 @@ class authServices extends BaseServices
     public function getProfile($token)
     {
         $userId = $this->translateToken($token);
-        $user = User::find($userId)->load('userInterestedCategories');
+        $user = User::find($userId)->load(['userInterestedCategories','userInterestedTag']);
         return $this->responseJson('200','success',\App\Http\Resources\v1\User::make($user),'200');
     }
 }
