@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->unique();
             $table->string('token_id')->nullable();
-            $table->foreignId('category_id')->unique();
+            $table->foreignId('category_id');
             $table->timestamps();
         });
     }
