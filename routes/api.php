@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\v1\client;
 use App\Http\Controllers\v1\main;
-
+use \App\Http\Controllers\v1\admin;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -68,4 +68,15 @@ Route::prefix('v1')->group(function () {
             Route::get('/delete',[client\tagController::class,'deleteTag']);
         });
     });
+
+
+
+    Route::prefix('admin')->group(function() {
+        Route::prefix('segment')->group(function () {
+            Route::get('all', [admin\segmentController::class, 'getListSegments']);
+        });
+    });
+
 });
+
+
