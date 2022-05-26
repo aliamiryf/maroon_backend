@@ -4,7 +4,7 @@ namespace App\Listeners;
 
 use Illuminate\Support\Facades\DB;
 
-class baseUserInterstedMethods
+class baseUserInterestedMethods
 {
     public function checkItExists($item, $userID, $table, $column , $tokenID = null) : bool
     {

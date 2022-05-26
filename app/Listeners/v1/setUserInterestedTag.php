@@ -3,7 +3,7 @@
 namespace App\Listeners\v1;
 
 use App\Events\userReadArticle;
-use App\Listeners\baseUserInterstedMethods;
+use App\Listeners\baseUserInterestedMethods;
 use App\Models\v1\TemporaryToken;
 use App\Models\v1\User;
 use App\Services\v1\main\jwtServices;
@@ -12,7 +12,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
-class setUserInterestedTag extends baseUserInterstedMethods
+class setUserInterestedTag extends baseUserInterestedMethods
 {
     /**
      * Create the event listener.
