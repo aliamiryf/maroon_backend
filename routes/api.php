@@ -74,6 +74,7 @@ Route::prefix('v1')->group(function () {
     Route::prefix('admin')->group(function() {
         Route::prefix('segment')->group(function () {
             Route::get('all', [admin\segmentController::class, 'getListSegments']);
+            Route::post('create',[admin\segmentController::class,'createSegment']);
         });
     });
 

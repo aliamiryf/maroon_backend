@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable();
             $table->foreignId('segment_id');
-            $table->foreignId('token_id');
+            $table->foreignId('token_id')->nullable();
             $table->timestamps();
         });
     }
