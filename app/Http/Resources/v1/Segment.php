@@ -17,6 +17,7 @@ class Segment extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'status'=>$this->status,
             'conditions'=>SegmentConditions::collection($this->whenLoaded('conditions')),
             'users'=>User::collection($this->whenLoaded('users')),
             'users_count'=>$this->users_count,

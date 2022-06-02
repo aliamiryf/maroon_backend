@@ -23,8 +23,8 @@ class EventServiceProvider extends ServiceProvider
         ],
         userReadArticle::class => [
             setUserInterestedCategories::class,
-            setUserInterestedTag::class,
-            SegmentingUsers::class,
+            setUserInterestedTag::class
+//            SegmentingUsers::class,
         ]
     ];
 

@@ -51,10 +51,8 @@ class setUserInterestedCategories extends baseUserInterestedMethods
 
         $user = $this->jwtServices->translateToken($token);
 
-        if (!$this->checkItExists($this->event->request->category->id,$user->userId,'category_interested_user','category_id')) {
-
-            User::find($user->userId)->userInterestedCategories()->attach([$this->event->request->category->id]);
-
+        if (!$this->checkItExists($this->event->request->category->id,$user->userId,'category_interested_user','category_id','',$this->event->request->article->id)) {
+            User::find($user->userId)->userInterestedCategories()->attach($this->event->request->category->id,['article_id'=>$this->event->request->article->id]);
         }
     }
 
@@ -63,10 +61,11 @@ class setUserInterestedCategories extends baseUserInterestedMethods
         $token = TemporaryToken::where('token', $this->event->request->header('user_temporary_token'))->first();
 
 
-        if (!$this->checkItExists($this->event->request->category->id,'','category_interested_user','category_id',$token->id)) {
+        if (!$this->checkItExists($this->event->request->category->id,'','category_interested_user','category_id',$token->id,$this->event->request->article->id)) {
             $db = DB::table('category_interested_user')->insert([
                 'category_id' => $this->event->request->category->id,
                 'token_id' => $token->id,
+                'article_id'=>$this->event->request->article->id,
                 'created_at' => Date::now(),
             ]);
         }

@@ -42,7 +42,7 @@ class ArticleServices extends BaseServices
         $article = Article::findOrFail($postId)->load('category');
         $category = $article->category;
         $tags = $article->tags;
-        $this->request->merge(['category'=>$category,'tags'=>$tags]);
+        $this->request->merge(['category'=>$category,'tags'=>$tags,'article'=>$article]);
         event(new userReadArticle($this->request));
 
         return $this->responseJson('success', 'success', $article , 200);

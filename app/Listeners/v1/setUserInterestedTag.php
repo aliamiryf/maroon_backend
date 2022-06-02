@@ -57,8 +57,8 @@ class setUserInterestedTag extends baseUserInterestedMethods
 
         foreach ($this->event->request->tags as $tag) {
 
-            if (!$this->checkItExists($tag->id, $user->userId, 'user_interested_tag', 'tag_id')) {
-                User::find($user->userId)->userInterestedTag()->attach([$tag->id]);
+            if (!$this->checkItExists($tag->id, $user->userId, 'user_interested_tag', 'tag_id','',$this->event->request->article->id)) {
+                User::find($user->userId)->userInterestedTag()->attach($tag->id,['article_id'=>$this->event->request->article->id]);
             }
 
         }
@@ -71,10 +71,11 @@ class setUserInterestedTag extends baseUserInterestedMethods
         $table = DB::table('user_interested_tag');
 
         foreach ($this->event->request->tags as $tag) {
-            if (!$this->checkItExists($tag->id,'','user_interested_tag','tag_id',$token->id)) {
+            if (!$this->checkItExists($tag->id,'','user_interested_tag','tag_id',$token->id,$this->event->request->article->id)) {
                 $db = $table->insert([
                     'tag_id' => $tag->id,
                     'token_id' => $token->id,
+                    'article_id'=>$this->event->request->article->id,
                     'created_at' => Date::now(),
                 ]);
             }

@@ -13,12 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('category_interested_user', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->nullable();
-            $table->string('token_id')->nullable();
-            $table->foreignId('category_id');
-            $table->timestamps();
+        Schema::table('user_interested_tag', function (Blueprint $table) {
+            $table->foreignId('article_id')->after('tag_id');
         });
     }
 
@@ -29,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category_interested_user');
+        Schema::table('user_interested_tag', function (Blueprint $table) {
+            //
+        });
     }
 };
