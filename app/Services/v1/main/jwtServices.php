@@ -2,6 +2,7 @@
 
 namespace App\Services\v1\main;
 
+use App\Models\v1\User;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
@@ -25,5 +26,10 @@ class jwtServices
         $token = str_replace('Bearer ','',$token);
         $decoded = JWT::decode($token, new Key($this->key, 'HS256'));
         return $decoded;
+    }
+
+    public function translateTokenAndFindUser($token){
+        $userInfo = $this->translateToken($token);
+        return User::find($userInfo->userId);
     }
 }

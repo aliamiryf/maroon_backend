@@ -10,6 +10,7 @@ class Segment extends Model
     use HasFactory;
 
     protected $table = 'segment';
+    protected $guarded = [];
 
     public function conditions(){
         return $this->hasMany(SegmentCondition::class,'segment_id');

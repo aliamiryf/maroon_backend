@@ -9,25 +9,21 @@ use Illuminate\Database\Eloquent\Model;
 class SegmentCondition extends Model
 {
     use HasFactory;
-
+    protected $guarded = [];
     protected $table = 'segment_conditions';
-    //    public $rules = [
-//        'count' => 2,
-//        'article_id' => 1,
-//        'tag_id' => 1,
-//        'category_id' => 1,
-//        'table'=>'1',
-//        'useHistory'=>1,
-//    ];
-//    public $f = [
-//        'count'=>'2',
-//        'category_id'=>1,
-//        'table'=>'category_interested_user'
-//    ];
-    protected function condition() : Attribute
+    static $rules = [
+        'count',
+        'article_id',
+        'tag_id',
+        'category_id',
+        'table',
+        'useHistory'
+    ];
+
+    protected function condition(): Attribute
     {
         return Attribute::make(
-            get : fn($value) => json_decode($value),
+            get: fn($value) => json_decode($value),
         );
     }
 }

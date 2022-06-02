@@ -20,6 +20,6 @@ class segmentController extends Controller
 
     public function createSegment(Request $request)
     {
-        dd($request->all());
+        return $this->ServicesHandler->createSegment($request->all());
     }
 }

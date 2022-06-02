@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Events\userReadArticle;
+use App\Listeners\SegmentingUsers;
 use App\Listeners\v1\setUserInterestedTag;
 use App\Listeners\v1\setUserInterestedCategories;
 use Illuminate\Auth\Events\Registered;
@@ -23,6 +24,7 @@ class EventServiceProvider extends ServiceProvider
         userReadArticle::class => [
             setUserInterestedCategories::class,
             setUserInterestedTag::class,
+            SegmentingUsers::class,
         ]
     ];
 

@@ -21,8 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1')->group(function () {
-
-
     Route::prefix('article')->group(function () {
         Route::get('/all', [client\articleController::class, 'getAllArticle']);
         Route::post('create', [client\articleController::class, 'createArticle']);

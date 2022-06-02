@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\mainMiddleware;
 use App\Http\Middleware\platformChecker;
 use App\Http\Middleware\v1\authJwt;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -44,6 +45,7 @@ class Kernel extends HttpKernel
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:api',
             platformChecker::class,
+            mainMiddleware::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];
