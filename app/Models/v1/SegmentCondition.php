@@ -23,7 +23,7 @@ class SegmentCondition extends Model
     protected function condition(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => json_decode($value),
+            get: fn($value) => json_decode($value,true),
         );
     }
 }

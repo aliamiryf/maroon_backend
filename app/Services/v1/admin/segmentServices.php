@@ -40,4 +40,26 @@ class segmentServices extends BaseServices
         return $final_param;
     }
 
+    public function pushingClientInSegment(Segment $segment,$userID = null,$tokenID = null)
+    {
+        $userExitsInSegments = $this->checkClientExistsInSegment($segment->id,$userID,$tokenID);
+        if (!$userExitsInSegments){
+            $segment->users()->attach($userID);
+        }
+    }
+
+    public function checkClientExistsInSegment($segmentID,$userID = null,$tokenID = null){
+        if ($userID != null){
+            $segment = Segment::find($segmentID);
+            $segmentUsers = $segment->users;
+            if (!empty($segmentUsers)){
+                foreach ($segmentUsers as $user){
+                    if ($userID == $user->id){
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+    }
 }
