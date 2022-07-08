@@ -16,7 +16,7 @@ class setUserInterestedCategories extends baseUserInterestedMethods
      * Create the event listener.
      *
      * @return void
- */
+     */
     public $event;
     public $jwtServices;
 
@@ -34,12 +34,15 @@ class setUserInterestedCategories extends baseUserInterestedMethods
      */
     public function handle()
     {
-        if ($this->event->request->header('authorization') != null) {
-            $this->setCategoryLoginUser();
+        if (isset($this->event->request->category)) {
 
-        } else if ($this->event->request->header('user_temporary_token') != null) {
+            if ($this->event->request->header('authorization') != null) {
+                $this->setCategoryLoginUser();
 
-            $this->setCategoryGuestUser();
+            } else if ($this->event->request->header('user_temporary_token') != null) {
+
+                $this->setCategoryGuestUser();
+            }
         }
     }
 
@@ -51,21 +54,19 @@ class setUserInterestedCategories extends baseUserInterestedMethods
 
         $user = $this->jwtServices->translateToken($token);
 
-        if (!$this->checkItExists($this->event->request->category->id,$user->userId,'category_interested_user','category_id','',$this->event->request->article->id)) {
-            User::find($user->userId)->userInterestedCategories()->attach($this->event->request->category->id,['article_id'=>$this->event->request->article->id]);
+        if (!$this->checkItExists($this->event->request->category->id, $user->userId, 'category_interested_user', 'category_id', '', $this->event->request->article->id)) {
+            User::find($user->userId)->userInterestedCategories()->attach($this->event->request->category->id, ['article_id' => $this->event->request->article->id]);
         }
     }
 
     public function setCategoryGuestUser()
     {
         $token = TemporaryToken::where('token', $this->event->request->header('user_temporary_token'))->first();
-
-
-        if (!$this->checkItExists($this->event->request->category->id,'','category_interested_user','category_id',$token->id,$this->event->request->article->id)) {
+        if (!$this->checkItExists($this->event->request->category->id, '', 'category_interested_user', 'category_id', $token->id, $this->event->request->article->id)) {
             $db = DB::table('category_interested_user')->insert([
                 'category_id' => $this->event->request->category->id,
                 'token_id' => $token->id,
-                'article_id'=>$this->event->request->article->id,
+                'article_id' => $this->event->request->article->id,
                 'created_at' => Date::now(),
             ]);
         }

@@ -50,9 +50,9 @@ class SegmentingUsers
                         $this->segmentServices->pushingClientInSegment($segment,$this->event->request->user->id);
                     }
                 } else {
-                    $data = $db->where('user_id', $this->event->request->user->id)->count();
+                    $data = $db->where('token_id', $this->event->request->token->id)->count();
                     if ($condition->condition['count'] == $data) {
-//                        $this->segmentServices->pushingClientInSegment('');
+                        $this->segmentServices->pushingClientInSegment($segment,'',$this->event->request->token->id);
                     }
                 }
             }

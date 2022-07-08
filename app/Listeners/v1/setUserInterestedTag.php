@@ -36,15 +36,17 @@ class setUserInterestedTag extends baseUserInterestedMethods
      */
     public function handle()
     {
-        if ($this->event->request->header('authorization') != null) {
+        if (isset($this->event->request->article)){
+            if ($this->event->request->header('authorization') != null) {
 
-            $this->setTagLoginUser();
+                $this->setTagLoginUser();
 
-        } else if ($this->event->request->header('user_temporary_token') != null) {
+            } else if ($this->event->request->header('user_temporary_token') != null) {
 
-
-            $this->setTagGuestUser();
+                $this->setTagGuestUser();
+            }
         }
+
     }
 
     public function setTagLoginUser()
